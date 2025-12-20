@@ -1,0 +1,295 @@
+/* qmc-chat-styles.css */
+:root {
+    --qmc-primary: #00a8cc;
+    --qmc-bg: rgba(10, 25, 41, 0.85);
+    --qmc-text: #e6edf3;
+    --qmc-bot-msg: rgba(30, 41, 59, 0.7);
+    --qmc-user-msg: #00a8cc;
+    --qmc-glass: rgba(15, 23, 42, 0.7);
+    --qmc-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --qmc-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qmc-chat-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10000;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Floating Action Button */
+.qmc-chat-fab {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: var(--qmc-primary);
+    box-shadow: 0 0 25px rgba(0, 168, 204, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.qmc-chat-fab:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 35px rgba(0, 168, 204, 0.7);
+}
+
+.qmc-chat-fab svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+}
+
+/* Chat Window */
+.qmc-chat-window {
+    width: 420px;
+    max-width: calc(100vw - 40px);
+    height: 680px;
+    max-height: calc(100vh - 120px);
+    background: var(--qmc-bg);
+    background-image:
+        linear-gradient(rgba(10, 25, 41, 0.8), rgba(10, 25, 41, 0.9)),
+        url('tech_bg.png');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: var(--qmc-border);
+    border-radius: 28px;
+    box-shadow: var(--qmc-shadow);
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(40px) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.qmc-chat-window.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Header */
+.qmc-chat-header {
+    padding: 24px;
+    background: rgba(0, 168, 204, 0.15);
+    border-bottom: var(--qmc-border);
+    backdrop-filter: blur(10px);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.qmc-chat-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    border: var(--qmc-border);
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.qmc-chat-header-info h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: #fff;
+}
+
+.qmc-chat-header-info p {
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    color: var(--qmc-primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-shadow: 0 0 10px rgba(0, 168, 204, 0.5);
+}
+
+.qmc-chat-header-info p::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background: #00ff88;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 12px #00ff88;
+}
+
+/* Messages Area */
+.qmc-chat-messages {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--qmc-primary) transparent;
+}
+
+.qmc-chat-messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.qmc-chat-messages::-webkit-scrollbar-thumb {
+    background: var(--qmc-primary);
+    border-radius: 10px;
+}
+
+.qmc-msg {
+    max-width: 85%;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+    animation: qmcSlideIn 0.5s ease forwards;
+    position: relative;
+}
+
+.qmc-msg-bot {
+    align-self: flex-start;
+    background: var(--qmc-bot-msg);
+    color: var(--qmc-text);
+    border-bottom-left-radius: 5px;
+    border: var(--qmc-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.qmc-msg-user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--qmc-user-msg), #3d56c7);
+    color: white;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 6px 20px rgba(0, 168, 204, 0.4);
+}
+
+/* Typing Indicator */
+.qmc-typing {
+    display: flex;
+    gap: 5px;
+    padding: 12px 18px;
+    align-items: center;
+}
+
+.qmc-typing span {
+    width: 7px;
+    height: 7px;
+    background: var(--qmc-primary);
+    border-radius: 50%;
+    animation: qmcBounce 1.4s infinite ease-in-out both;
+    box-shadow: 0 0 8px var(--qmc-primary);
+}
+
+.qmc-typing span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.qmc-typing span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Options Container */
+.qmc-chat-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+.qmc-option-btn {
+    padding: 14px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    backdrop-filter: blur(8px);
+}
+
+.qmc-option-btn:hover {
+    background: var(--qmc-primary);
+    border-color: var(--qmc-primary);
+    transform: translateX(8px);
+    box-shadow: 0 0 25px rgba(0, 168, 204, 0.4);
+}
+
+@keyframes qmcSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes qmcBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Standalone Mode (Full Screen) */
+body.qmc-standalone {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #020617;
+}
+
+body.qmc-standalone .qmc-chat-widget {
+    position: relative;
+    bottom: auto;
+    right: auto;
+}
+
+body.qmc-standalone .qmc-chat-window {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    border: none;
+    background-color: #020617;
+}
+
+body.qmc-standalone .qmc-chat-fab {
+    display: none;
+}
