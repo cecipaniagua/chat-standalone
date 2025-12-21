@@ -2,7 +2,7 @@
 const CHAT_DATA = {
     // 🏠 PUNTO DE INICIO
     "start": {
-        message: "¡Hola! 👋 Bienvenido/a a <strong>QMC Desarrollos Tecnológicos</strong>. ¿En qué puedo ayudarte hoy?",
+        message: "¡Hola! 👋 Bienvenido/a a QMC Desarrollos Tecnológicos. ¿En qué puedo ayudarte hoy?",
         options: [
             { label: "💻 Desarrollo Web", next: "web" },
             { label: "🖥️ Software a Medida", next: "software" },
@@ -13,7 +13,7 @@ const CHAT_DATA = {
 
     // 🌐 DESARROLLO WEB
     "web": {
-        message: "Excelente elección. Creamos <strong>sitios web modernos y optimizados</strong> para tu negocio.",
+        message: "Excelente elección. Creamos sitios web modernos y optimizados para tu negocio.",
         options: [
             { label: "🏠 Landing Page", next: "web_landing" },
             { label: "🛒 Tienda Online", next: "web_ecommerce" },
@@ -22,21 +22,21 @@ const CHAT_DATA = {
         ]
     },
     "web_landing": {
-        message: "Nuestras <strong>Landing Pages</strong> convierten visitantes en clientes. Incluyen diseño premium, formularios y optimización SEO.",
+        message: "Nuestras Landing Pages convierten visitantes en clientes. Incluyen diseño premium, formularios y optimización SEO.",
         options: [
             { label: "Ver ejemplos", url: "https://qmc.com.ar/portafolio#landings" },
             { label: "Solicitar cotización", next: "contact_whatsapp" }
         ]
     },
     "web_ecommerce": {
-        message: "<strong>E-commerce completos</strong> con carrito, pagos online (Mercado Pago/Stripe), panel de administración y responsive.",
+        message: "E-commerce completos con carrito, pagos online (Mercado Pago/Stripe), panel de administración y responsive.",
         options: [
             { label: "Ver ejemplos", url: "https://qmc.com.ar/portafolio#ecommerce" },
             { label: "Solicitar cotización", next: "contact_whatsapp" }
         ]
     },
     "web_corporate": {
-        message: "Sitios <strong>corporativos profesionales</strong> con blog, portfolio, contacto y optimización para Google.",
+        message: "Sitios corporativos profesionales con blog, portfolio, contacto y optimización para Google.",
         options: [
             { label: "Ver ejemplos", url: "https://qmc.com.ar/portafolio#corporativos" },
             { label: "Solicitar cotización", next: "contact_whatsapp" }
@@ -61,7 +61,7 @@ const CHAT_DATA = {
         ]
     },
     "software_hotel": {
-        message: "Especializados en <strong>hoteles y posadas</strong>: reservas online, check-in/out, housekeeping y reportes ocupacionales.",
+        message: "Especializados en hoteles y posadas: reservas online, check-in/out, housekeeping y reportes ocupacionales.",
         options: [
             { label: "Ver funcionalidades", next: "hotel_features" },
             { label: "Solicitar demo", next: "contact_whatsapp" }
@@ -75,7 +75,7 @@ const CHAT_DATA = {
         ]
     },
     "software_erp": {
-        message: "<strong>ERP/CRM a medida</strong> integrando todos tus procesos: clientes, proveedores, stock, finanzas.",
+        message: "ERP/CRM a medida integrando todos tus procesos: clientes, proveedores, stock, finanzas.",
         options: [
             { label: "Ver ejemplos", url: "https://qmc.com.ar/portafolio#erp" },
             { label: "Solicitar reunión", next: "contact_calendar" }
@@ -84,7 +84,7 @@ const CHAT_DATA = {
 
     // 🤖 AUTOMATIZACIONES
     "automation": {
-        message: "Automatizamos tu negocio con <strong>n8n, Make.com y Zapier</strong>. Ahorra tiempo y elimina errores.",
+        message: "Automatizamos tu negocio con n8n y Make.com  Ahorra tiempo y elimina errores.",
         options: [
             { label: "📧 Email Marketing", next: "automation_email" },
             { label: "💬 WhatsApp Business", next: "automation_whatsapp" },
@@ -93,7 +93,7 @@ const CHAT_DATA = {
         ]
     },
     "automation_email": {
-        message: "Campañas automáticas: abandonos de carrito, cumpleaños, recordatorios, follow-ups.",
+        message: "Campañas automáticas: recordatorios, follow-ups.",
         options: [
             { label: "Configurar demo", next: "contact_whatsapp" }
         ]
@@ -115,7 +115,7 @@ const CHAT_DATA = {
 
     // 📱 REDES SOCIALES
     "social": {
-        message: "Gestionamos tus <strong>redes sociales</strong> con contenido profesional y anuncios optimizados.",
+        message: "Gestionamos tus redes sociales con contenido profesional y anuncios optimizados.",
         options: [
             { label: "📸 Gestión de Contenido", next: "social_content" },
             { label: "🎯 Publicidad Pagada", next: "social_ads" },
@@ -141,14 +141,14 @@ const CHAT_DATA = {
     "contact_whatsapp": {
         message: "¡Perfecto! Un especialista de QMC te contactará en <strong>WhatsApp</strong> en minutos para ayudarte.",
         options: [
-            { label: "Abrir WhatsApp", url: "https://wa.me/5491122334455?text=Hola%20QMC%2C%20quiero%20info%20sobre..." }
+            { label: "Abrir WhatsApp", url: "https://wa.me/5491136778117?text=Hola%20QMC%2C%20quiero%20info%20sobre..." }
         ]
     },
     "contact_calendar": {
-        message: "Agenda una <strong>reunión gratuita</strong> con nuestro equipo técnico.",
+        message: "Agenda una reunión gratuita con nuestro equipo técnico.",
         options: [
             { label: "Reservar Calendly", url: "https://calendly.com/qmc-desarrollos/30min" },
-            { label: "WhatsApp ahora", url: "https://wa.me/5491122334455" }
+            { label: "WhatsApp ahora", url: "https://wa.me/5491136778117" }
         ]
     }
 };
