@@ -139,7 +139,7 @@ const CHAT_DATA = {
 
     // 📞 CONTACTO FINAL
     "contact_whatsapp": {
-        message: "¡Perfecto! Un especialista de QMC te contactará en <strong>WhatsApp</strong> en minutos para ayudarte.",
+        message: "¡Perfecto! Un especialista de QMC te contactará en WhatsApp en minutos para ayudarte.",
         options: [
             { label: "Abrir WhatsApp", url: "https://wa.me/5491136778117?text=Hola%20QMC%2C%20quiero%20info%20sobre..." }
         ]
@@ -156,3 +156,4 @@ const CHAT_DATA = {
 if (typeof module !== 'undefined') {
     module.exports = CHAT_DATA;
 }
+
