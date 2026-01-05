@@ -26,6 +26,7 @@ const CHAT_DATA = {
         options: [
             { label: "Ver ejemplos", url: "https://qmc.com.ar/portafolio#landings" },
             { label: "Solicitar cotización", next: "contact_whatsapp" }
+            
         ]
     },
     "web_ecommerce": {
