@@ -1,13 +1,12 @@
-/* qmc-chat-styles.css */
+/* qmc-chat-styles.css - Versión Integrada */
 :root {
-    --qmc-primary: #00a8cc;
-    --qmc-bg: rgba(10, 25, 41, 0.85);
-    --qmc-text: #e6edf3;
-    --qmc-bot-msg: rgba(30, 41, 59, 0.7);
-    --qmc-user-msg: #00a8cc;
-    --qmc-glass: rgba(15, 23, 42, 0.7);
-    --qmc-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-    --qmc-border: 1px solid rgba(255, 255, 255, 0.1);
+    --qmc-primary: #06b6d4; /* Cian de la web */
+    --qmc-dark: #0f172a;    /* Slate 900 */
+    --qmc-light: #f8fafc;   /* Slate 50 */
+    --qmc-text-main: #1e293b; /* Slate 800 */
+    --qmc-text-muted: #64748b; /* Slate 500 */
+    --qmc-white: #ffffff;
+    --qmc-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .qmc-chat-widget {
@@ -21,275 +20,178 @@
     align-items: flex-end;
 }
 
-/* Floating Action Button */
+/* Botón Flotante (FAB) */
 .qmc-chat-fab {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: var(--qmc-primary);
-    box-shadow: 0 0 25px rgba(0, 168, 204, 0.5);
-    cursor: pointer;
+    box-shadow: var(--qmc-shadow);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    color: white;
+    font-size: 24px;
 }
 
 .qmc-chat-fab:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 35px rgba(0, 168, 204, 0.7);
+    transform: scale(1.1);
+    background: #0891b2; /* Cian un poco más oscuro */
 }
 
-.qmc-chat-fab svg {
-    width: 32px;
-    height: 32px;
-    fill: white;
-}
-
-/* Chat Window */
+/* Ventana de Chat */
 .qmc-chat-window {
-    width: 420px;
-    max-width: calc(100vw - 40px);
-    height: 680px;
-    max-height: calc(100vh - 120px);
-    background: var(--qmc-bg);
-    background-image:
-        linear-gradient(rgba(10, 25, 41, 0.8), rgba(10, 25, 41, 0.9)),
-        url('tech_bg.png');
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: var(--qmc-border);
-    border-radius: 28px;
+    width: 350px;
+    height: 500px;
+    max-height: 80vh;
+    background: var(--qmc-white);
+    border-radius: 16px;
     box-shadow: var(--qmc-shadow);
-    margin-bottom: 25px;
-    display: flex;
+    display: none; /* Se activa por JS */
     flex-direction: column;
     overflow: hidden;
-    transform: translateY(40px) scale(0.9);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+    animation: qmcSlideIn 0.3s ease-out;
 }
 
 .qmc-chat-window.active {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: auto;
+    display: flex;
 }
 
-/* Header */
+/* Cabecera */
 .qmc-chat-header {
-    padding: 24px;
-    background: rgba(0, 168, 204, 0.15);
-    border-bottom: var(--qmc-border);
-    backdrop-filter: blur(10px);
-    color: white;
+    background: var(--qmc-dark);
+    padding: 16px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    border-bottom: 2px solid var(--qmc-primary);
 }
 
 .qmc-chat-header img {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
-    border: var(--qmc-border);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--qmc-primary);
 }
 
 .qmc-chat-header-info h3 {
+    color: var(--qmc-white);
     margin: 0;
-    font-size: 19px;
+    font-size: 14px;
     font-weight: 800;
-    letter-spacing: -0.8px;
-    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .qmc-chat-header-info p {
-    margin: 4px 0 0 0;
-    font-size: 13px;
     color: var(--qmc-primary);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    text-shadow: 0 0 10px rgba(0, 168, 204, 0.5);
+    margin: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.qmc-chat-header-info p::before {
-    content: '';
-    width: 9px;
-    height: 9px;
-    background: #00ff88;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 12px #00ff88;
-}
-
-/* Messages Area */
+/* Cuerpo de Mensajes */
 .qmc-chat-messages {
     flex: 1;
-    padding: 24px;
+    padding: 16px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--qmc-primary) transparent;
+    gap: 12px;
+    background: var(--qmc-light);
 }
 
-.qmc-chat-messages::-webkit-scrollbar {
-    width: 5px;
-}
-
-.qmc-chat-messages::-webkit-scrollbar-thumb {
-    background: var(--qmc-primary);
-    border-radius: 10px;
-}
-
-.qmc-msg {
+.qmc-message {
     max-width: 85%;
-    padding: 15px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    line-height: 1.6;
-    animation: qmcSlideIn 0.5s ease forwards;
-    position: relative;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
-.qmc-msg-bot {
+.qmc-message.bot {
     align-self: flex-start;
-    background: var(--qmc-bot-msg);
-    color: var(--qmc-text);
-    border-bottom-left-radius: 5px;
-    border: var(--qmc-border);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: #e2e8f0;
+    color: var(--qmc-text-main);
+    border-radius: 15px 15px 15px 2px;
 }
 
-.qmc-msg-user {
+.qmc-message.user {
     align-self: flex-end;
-    background: linear-gradient(135deg, var(--qmc-user-msg), #3d56c7);
-    color: white;
-    border-bottom-right-radius: 5px;
-    box-shadow: 0 6px 20px rgba(0, 168, 204, 0.4);
-}
-
-/* Typing Indicator */
-.qmc-typing {
-    display: flex;
-    gap: 5px;
-    padding: 12px 18px;
-    align-items: center;
-}
-
-.qmc-typing span {
-    width: 7px;
-    height: 7px;
     background: var(--qmc-primary);
-    border-radius: 50%;
-    animation: qmcBounce 1.4s infinite ease-in-out both;
-    box-shadow: 0 0 8px var(--qmc-primary);
+    color: white;
+    border-radius: 15px 15px 2px 15px;
 }
 
-.qmc-typing span:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.qmc-typing span:nth-child(2) {
-    animation-delay: -0.16s;
-}
-
-/* Options Container */
-.qmc-chat-options {
+/* Opciones de Respuesta */
+.qmc-options-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-    padding-left: 5px;
+    gap: 8px;
+    margin-top: 5px;
+    width: 100%;
 }
 
 .qmc-option-btn {
-    padding: 14px 22px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    color: #fff;
-    font-size: 14px;
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: var(--qmc-white);
+    color: var(--qmc-text-main);
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s;
     text-align: left;
-    backdrop-filter: blur(8px);
 }
 
 .qmc-option-btn:hover {
     background: var(--qmc-primary);
+    color: white;
     border-color: var(--qmc-primary);
-    transform: translateX(8px);
-    box-shadow: 0 0 25px rgba(0, 168, 204, 0.4);
+    transform: translateY(-2px);
 }
 
-@keyframes qmcSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
+/* Indicador de escribiendo */
+.qmc-typing {
+    padding: 10px;
+    display: flex;
+    gap: 4px;
+}
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+.qmc-typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--qmc-text-muted);
+    border-radius: 50%;
+    animation: qmcBounce 1.4s infinite ease-in-out both;
+}
+
+.qmc-typing span:nth-child(1) { animation-delay: -0.32s; }
+.qmc-typing span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes qmcSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes qmcBounce {
-
-    0%,
-    80%,
-    100% {
-        transform: scale(0);
-        opacity: 0.3;
-    }
-
-    40% {
-        transform: scale(1.3);
-        opacity: 1;
-    }
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
 }
 
-/* Standalone Mode (Full Screen) */
-body.qmc-standalone {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #020617;
+/* Ocultar scrollbar */
+.qmc-chat-messages::-webkit-scrollbar {
+    width: 4px;
 }
-
-body.qmc-standalone .qmc-chat-widget {
-    position: relative;
-    bottom: auto;
-    right: auto;
-}
-
-body.qmc-standalone .qmc-chat-window {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    border-radius: 0;
-    margin: 0;
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-    border: none;
-    background-color: #020617;
-}
-
-body.qmc-standalone .qmc-chat-fab {
-    display: none;
+.qmc-chat-messages::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
 }
