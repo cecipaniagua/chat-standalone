@@ -1,28 +1,27 @@
-/* qmc-widget.js */
+/* qmc-widget.js - Versión Corregida y Sincronizada */
 (function () {
     function initChat() {
-        // Apply Config
+        // Cargar Configuración
         const config = (typeof BOT_CONFIG !== 'undefined') ? BOT_CONFIG : {
-            companyName: "Empresa",
+            companyName: "QMC",
             botName: "Asistente",
-            themeColor: "#6563e7ff",
+            themeColor: "#06b6d4",
             avatarUrl: "",
             botWelcomeMessage: "Hola"
         };
 
         const data = (typeof CHAT_DATA !== 'undefined') ? CHAT_DATA : {};
 
-        // Inyectar Estilos Variables
+        // Inyectar variables de color dinámicas basadas en la config
         const styleTag = document.createElement('style');
         styleTag.innerHTML = `
             :root {
                 --qmc-primary: ${config.themeColor};
-                --qmc-user-msg: ${config.themeColor};
             }
         `;
         document.head.appendChild(styleTag);
 
-        // Crear Estructura DOM
+        // Crear Estructura DOM del Widget
         const widgetContainer = document.createElement('div');
         widgetContainer.className = 'qmc-chat-widget';
         widgetContainer.id = 'qmc-chat-widget';
@@ -30,17 +29,17 @@
         widgetContainer.innerHTML = `
             <div class="qmc-chat-window" id="qmc-window">
                 <div class="qmc-chat-header">
-                    <img src="${config.avatarUrl}" alt="Logo">
+                    <img src="${config.avatarUrl}" alt="Logo" onerror="this.src='https://ui-avatars.com/api/?name=QMC&background=06b6d4&color=fff'">
                     <div class="qmc-chat-header-info">
                         <h3>${config.companyName}</h3>
-                        <p>En línea</p>
+                        <p>Asistente Virtual</p>
                     </div>
                 </div>
                 <div class="qmc-chat-messages" id="qmc-messages"></div>
             </div>
-            <div class="qmc-chat-fab" id="qmc-fab">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-            </div>
+            <button class="qmc-chat-fab" id="qmc-fab">
+                <i class="fas fa-comments"></i>
+            </button>
         `;
 
         document.body.appendChild(widgetContainer);
@@ -49,17 +48,23 @@
         const windowElem = document.getElementById('qmc-window');
         const messagesElem = document.getElementById('qmc-messages');
 
-        // Toggle Widget
-        if (fab) {
-            fab.addEventListener('click', () => {
-                windowElem.classList.toggle('active');
-            });
-        }
+        // Control de Apertura/Cierre
+        fab.addEventListener('click', () => {
+            windowElem.classList.toggle('active');
+            // Cambiar icono del botón
+            const icon = fab.querySelector('i');
+            if (windowElem.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-comments';
+            }
+        });
 
         function addMessage(text, type = 'bot') {
             const msgDiv = document.createElement('div');
-            msgDiv.className = `qmc-msg qmc-msg-${type}`;
-            msgDiv.innerText = text;
+            // Usamos las clases corregidas: 'qmc-message bot' o 'qmc-message user'
+            msgDiv.className = `qmc-message ${type}`;
+            msgDiv.innerHTML = text; // Permite usar <br> o emojis
             messagesElem.appendChild(msgDiv);
             messagesElem.scrollTop = messagesElem.scrollHeight;
             return msgDiv;
@@ -67,7 +72,7 @@
 
         function showTypingIndicator() {
             const typingDiv = document.createElement('div');
-            typingDiv.className = 'qmc-msg qmc-msg-bot qmc-typing';
+            typingDiv.className = 'qmc-typing';
             typingDiv.innerHTML = '<span></span><span></span><span></span>';
             messagesElem.appendChild(typingDiv);
             messagesElem.scrollTop = messagesElem.scrollHeight;
@@ -75,32 +80,35 @@
         }
 
         function showOptions(options) {
-            const optionsDiv = document.createElement('div');
-            optionsDiv.className = 'qmc-chat-options';
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'qmc-options-container';
 
             options.forEach((opt, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'qmc-option-btn';
                 btn.innerText = opt.label;
-                btn.style.animationDelay = `${index * 0.1}s`;
+                
                 btn.onclick = () => {
-                    // Remover botones actuales
-                    optionsDiv.remove();
-                    // Agregar mensaje del usuario
+                    // Quitar los botones al elegir uno
+                    optionsContainer.remove();
+                    // Mostrar elección del usuario
                     addMessage(opt.label, 'user');
 
+                    // Pequeña espera para la respuesta del bot
                     setTimeout(() => {
                         if (opt.url) {
                             window.open(opt.url, '_blank');
-                            handleStep('start'); // Reiniciar o algo
+                            // Opcional: Volver al inicio después de abrir enlace
+                            handleStep('start');
                         } else {
                             handleStep(opt.next);
                         }
-                    }, 600);
+                    }, 500);
                 };
-                optionsDiv.appendChild(btn);
+                optionsContainer.appendChild(btn);
             });
-            messagesElem.appendChild(optionsDiv);
+
+            messagesElem.appendChild(optionsContainer);
             messagesElem.scrollTop = messagesElem.scrollHeight;
         }
 
@@ -110,25 +118,28 @@
 
             const typing = showTypingIndicator();
 
+            // Tiempo de "escritura" proporcional al texto o fijo
             setTimeout(() => {
                 typing.remove();
                 addMessage(step.message, 'bot');
-                if (step.options) {
+                
+                if (step.options && step.options.length > 0) {
                     setTimeout(() => {
                         showOptions(step.options);
                     }, 400);
                 }
-            }, 1200); // More realistic typing delay
+            }, 1000);
         }
 
-        // Iniciar conversación
+        // Iniciar la conversación automáticamente al cargar
         handleStep('start');
     }
 
-    // Esperar a que el DOM esté listo
+    // Inicialización segura
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         initChat();
     } else {
         document.addEventListener('DOMContentLoaded', initChat);
     }
-})();
+})
+();
